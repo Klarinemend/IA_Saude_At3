@@ -1,0 +1,32 @@
+# Pastas de Datasets e Imagens
+images/
+images_SEM/
+teste/
+teste2/
+data_sem/
+
+# Pesos do Modelo (Arquivos Pesados)
+*.pth
+!model_7class.pth
+*.pt
+*.onnx
+*.h5
+
+# Arquivos de Entrada/Saída de Testes
+entrada.csv
+resultado.csv
+
+# Cache do Python e Compilação
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Configurações de IDEs e do Sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
