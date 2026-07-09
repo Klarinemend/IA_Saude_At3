@@ -6,9 +6,7 @@
 
 ### 1. Construção da Classe "Sem Lesão" (SEM)
 Para mitigar o problema de imagens fora do domínio clínico (fotos tremidas, dedos cobrindo a lente, pele saudável, fundos de imagem) que um classificador em campo inevitavelmente receberá, construímos a 7ª classe (**`SEM`**) seguindo uma estratégia de diversificação de distribuição (OOD):
-* **Composição e Quantidade:** Um conjunto total de 500 imagens, divididas entre:
-  * **Textura de Pele Saudável:** 250 imagens de textura cutânea em alta e média resolução (em cores).
-  * **Imagens de Controle e Ruído:** 250 imagens contendo rostos, objetos cotidianos, planos de fundo diversos e coberturas de lente (simulando dedos cobrindo a câmera).
+* **Composição e Quantidade:** Um conjunto total de **1273 imagens** para a classe SEM (em cores RGB), integrando texturas macro de pele saudável e uma ampla gama de fotos de controle e ruído (rostos, objetos cotidianos, fundos diversos e obstruções de lente), que foram combinadas às **2298 imagens** clínicas de lesões cutâneas do PAD-UFES-20.
 * **Critérios de Seleção:** As imagens foram selecionadas para cobrir a variabilidade de White Balance (balanço de cores) de fotos caseiras e smartphones, eliminando o viés do ambiente estritamente hospitalar e clínico presente nas fotos do dataset original.
 
 ---
@@ -16,7 +14,7 @@ Para mitigar o problema de imagens fora do domínio clínico (fotos tremidas, de
 ### 2. Arquitetura do Modelo e Decisões de Treino
 Adotamos uma abordagem de **Modelo Único de 7 Classes** em substituição a arquiteturas em cascata para garantir maior estabilidade de convergência e reduzir o tempo de computação.
 * **Rede Backbone:** Utilizamos a **ResNet18** com pesos pré-treinados no ImageNet (transfer learning) e realizamos o ajuste fino (fine-tuning) de todas as camadas.
-* **Tratamento do Desbalanceamento (Class Weighting):** Devido ao desbalanceamento no dataset de treino (com classes variando de 52 imagens em MEL até 843 em BCC e 500 em SEM), implementamos pesos dinâmicos na função de custo **CrossEntropyLoss**, inversamente proporcionais à frequência das classes.
+* **Tratamento do Desbalanceamento (Class Weighting):** Devido ao desbalanceamento no dataset de treino (com classes variando de 52 imagens em MEL até 843 em BCC e 1273 em SEM), implementamos pesos dinâmicos na função de custo **CrossEntropyLoss**, inversamente proporcionais à frequência das classes.
 * **Otimização:** Treinado com o otimizador **AdamW** (learning rate de $10^{-4}$ e weight decay de $10^{-4}$) por **35 épocas** com tamanho de lote (batch size) de 32.
 * **Evitando Vazamento de Dados (Data Leakage):** A divisão entre treino e validação foi agrupada de forma rígida pelo ID do paciente (`patient_id`), garantindo que fotos do mesmo indivíduo não estivessem presentes simultaneamente nos dois conjuntos.
 
