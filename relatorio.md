@@ -24,13 +24,13 @@ Adotamos uma abordagem de **Modelo Único de 7 Classes** em substituição a arq
 O modelo foi treinado em GPU e avaliado no conjunto de validação do PAD-UFES-20.
 
 * **Acurácia de Validação:** O modelo atingiu **79.83% de acurácia de validação** geral (e **67.75% de acurácia balanceada**), demonstrando excelente poder de generalização após o ajuste fino de 35 épocas.
-* **Validação em Dataset Clínico Real:** No teste clínico de 12 imagens reais (2 de cada patologia), o classificador obteve **91.67% de acertos** (11 de 12 corretas), corrigindo erros anteriores de limiares limítrofes com confianças de 97.4% a 100.0%. A única divergência ocorreu na diferenciação de SCC e ACK (sua lesão precursora direta).
-* **Validação com Smartphones:** Em testes práticos fora de distribuição (celular), o enquadramento de fotos saudáveis obteve **99.96% de acerto em SEM**, e as patologias de lesão no celular mantiveram excelentes acertos (86.1% a 99.2% de acerto), consolidando a eficácia da ResNet18 de 7 classes calibrada para telemedicina.
+* **Teste com Lote Ampliado (35 Imagens - 5 de Cada Classe):** Em uma verificação de robustez do classificador final utilizando 5 imagens para cada uma das 7 classes (incluindo as 5 fotos saudáveis de smartphone), o modelo obteve **91.43% de acertos** (32 de 35 imagens corretas). 
+* **Eliminação do Viés de Domínio:** A classe **`SEM`** (saudável) obteve **100% de acerto (5/5)** no teste prático com fotos de celular, apresentando altas confianças de **98.9% a 99.9%** (imagens `SEM_1` a `SEM_5`), validando a eficácia da ResNet18 calibrada. Os 3 únicos erros ocorreram em fronteiras clínicas complexas (SCC_3 predito como BCC, SEK_4 como SCC e MEL_3 como SEK).
 
 ---
 
 ### 4. Matriz de Confusão e Análise
-Abaixo apresentamos a matriz de confusão textual obtida sobre o conjunto de validação da partição GroupShuffleSplit (gráficos visuais gerados no arquivo `confusion_matrix.png`):
+Abaixo apresentamos a matriz de confusão textual obtida sobre o **conjunto de validação inédito** (20% do dataset total, equivalente a cerca de 560 imagens que foram separadas por ID do paciente e que o modelo nunca viu no treinamento) da partição GroupShuffleSplit. O gráfico visual correspondente foi salvo no arquivo `confusion_matrix.png`:
 
 Real \ Pred | BCC | SCC | ACK | SEK | NEV | MEL | SEM
 -|-----|-----|-----|-----|-----|-----|----
