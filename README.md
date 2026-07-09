@@ -39,7 +39,7 @@ pip install -r requirements.txt
 O treinamento é feito a partir de uma única rede convolucional unificada com 7 classes, aplicando ponderação de perda para balanceamento de classes e transfer learning:
 
 ```powershell
-python train_external.py --epochs 10 --batch-size 32
+python train_external.py --epochs 35 --batch-size 32
 ```
 
 O treinamento gera o arquivo de pesos do modelo:
