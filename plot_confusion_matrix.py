@@ -129,10 +129,10 @@ def main():
     y_true = np.array(y_true)
     y_pred = np.array(y_pred)
 
-    # Gera a matriz de confusão
+    # Cria a matriz de confusão com o sklearn
     cm = confusion_matrix(y_true, y_pred, labels=range(7))
 
-    # 1. Imprime a Matriz de Confusão em Markdown
+    # Formata a matriz como tabela Markdown para facilitar a cópia para o relatório
     print("\n--- MATRIZ DE CONFUSÃO EM FORMATO MARKDOWN (COPIAR PARA RELATORIO.MD) ---")
     header = " | ".join(["Real \\ Pred"] + CLASSES)
     print(header)
@@ -141,7 +141,7 @@ def main():
         row_str = " | ".join([CLASSES[i]] + [str(x) for x in row])
         print(row_str)
 
-    # 2. Tenta plotar graficamente usando matplotlib e seaborn
+    # Plota a matriz graficamente caso matplotlib e seaborn estejam disponíveis
     try:
         import matplotlib.pyplot as plt
         import seaborn as sns
@@ -158,8 +158,8 @@ def main():
         plt.savefig(output_image, dpi=300)
         print(f"\n=> Gráfico salvo com sucesso em '{output_image}'!")
     except ImportError:
-        print("\nAviso: matplotlib ou seaborn não estão instalados.")
-        print("Para gerar o gráfico visual, instale-os com: pip install matplotlib seaborn")
+        print("\nAviso: bibliotecas de plotagem não instaladas.")
+        print("Para gerar o gráfico de imagem, instale com: pip install matplotlib seaborn")
 
 if __name__ == "__main__":
     main()

@@ -1,6 +1,6 @@
 # Classificação Multiclasse de Lesões de Pele com Deteção de Out-of-Distribution
 **Disciplina:** Inteligência Artificial Aplicada à Saúde  
-**Autores:** [Nome do Integrante 1] e [Nome do Integrante 2]
+**Autores:** Gustavo Sarti e Klarine Silva
 
 ---
 

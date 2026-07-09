@@ -76,3 +76,21 @@ Para executar a inferência de novas imagens:
 
 * **Integrante 1 (Gustavo Sarti):** Planejamento da arquitetura de 7 classes, coleta e curadoria de imagens para a classe SEM, desenvolvimento dos códigos, calibração do threshold e testes locais com imagens.
 * **Integrante 2 (Klarine Silva):** Planejamento da arquitetura de 7 classes, curadoria de imagens para a classe SEM, desenvolvimento dos códigos e elaboração do relatório técnico.
+
+---
+
+## Matriz de Confusão (Validação)
+
+Abaixo apresentamos a matriz de confusão gerada sobre o conjunto de validação inédito de 20% (cerca de 560 imagens, separadas por ID de paciente e nunca expostas ao modelo durante o treino):
+
+Real \ Pred | BCC | SCC | ACK | SEK | NEV | MEL | SEM
+-|-----|-----|-----|-----|-----|-----|----
+BCC | 148 | 11 | 14 | 0 | 4 | 0 | 0
+SCC | 23 | 8 | 11 | 1 | 1 | 0 | 0
+ACK | 28 | 7 | 113 | 1 | 0 | 0 | 2
+SEK | 0 | 1 | 6 | 28 | 4 | 2 | 0
+NEV | 1 | 1 | 0 | 3 | 27 | 1 | 2
+MEL | 0 | 0 | 0 | 4 | 3 | 8 | 0
+SEM | 0 | 0 | 1 | 0 | 2 | 0 | 253
+
+![Gráfico da Matriz de Confusão](confusion_matrix.png)

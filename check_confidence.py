@@ -5,7 +5,7 @@ from torchvision import transforms, models
 import torch.nn as nn
 import os
 
-# Configuração do dispositivo
+# Configura GPU ou CPU para inferência
 DEVICE = torch.device("cpu")
 if torch.cuda.is_available():
     try:
@@ -17,7 +17,7 @@ if torch.cuda.is_available():
 
 print(f"Executando no dispositivo: {DEVICE}")
 
-# Carrega o modelo de 7 classes
+# Instancia a ResNet18 adaptada para 7 saídas
 def make_resnet18(num_classes):
     model = models.resnet18(weights=None)
     model.fc = nn.Linear(model.fc.in_features, num_classes)
@@ -30,7 +30,7 @@ if os.path.exists(MODEL_PATH):
 model.to(DEVICE)
 model.eval()
 
-# Transformação
+# Redimensionamento e normalização padrão
 INFERENCE_TRANSFORM = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),

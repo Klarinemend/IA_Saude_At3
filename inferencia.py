@@ -7,19 +7,19 @@ import torch.nn as nn
 from PIL import Image
 from torchvision import models, transforms
 
-# Configura o dispositivo para CPU ou GPU, dependendo da disponibilidade do CUDA
+# Dispositivo padrão (CPU) com teste operacional de CUDA para usar a GPU se compatível
 DEVICE = torch.device("cpu")
 if torch.cuda.is_available():
     try:
-        # Testa se CUDA esta realmente operacional executando um kernel simples
         test_tensor = torch.zeros(1).to("cuda")
         test_tensor.add_(1)
         DEVICE = torch.device("cuda")
     except Exception:
         pass
-BINARY_MODEL_PATH = "model_binary_external.pth"  # Mantido para retrocompatibilidade caso necessário
+
 MODEL_PATH = "model_7class.pth"
-# Mapeamento reverso dos indices de classes para os nomes das classes
+
+# Relação de índices numéricos para classes textuais
 REV_DIAGNOSTIC_MAP = {
     0: "BCC",
     1: "SCC",
@@ -29,7 +29,8 @@ REV_DIAGNOSTIC_MAP = {
     5: "MEL",
     6: "SEM",
 }
-# Define a transformacao de preprocessamento para as imagens de entrada
+
+# Redimensionamento e normalização padrão das imagens de entrada
 INFERENCE_TRANSFORM = transforms.Compose(
     [
         transforms.Resize((224, 224)),
@@ -38,13 +39,14 @@ INFERENCE_TRANSFORM = transforms.Compose(
     ]
 )
 
-# Função para criar o modelo ResNet18 com o número especificado de classes
+# Instancia a arquitetura ResNet18 modificada para 7 classes
 def make_resnet18(num_classes):
     model = models.resnet18(weights=None)
     model.fc = nn.Linear(model.fc.in_features, num_classes)
     return model
 
-# Função para carregar o estado do modelo a partir de um arquivo
+
+# Utilitário de leitura segura dos pesos treinados
 def load_state_dict(path):
     if not os.path.exists(path):
         raise FileNotFoundError(
@@ -52,7 +54,8 @@ def load_state_dict(path):
         )
     return torch.load(path, map_location=DEVICE)
 
-# Função para carregar o modelo treinado
+
+# Inicializa o modelo de 7 classes em modo de avaliação (eval)
 def load_model():
     model = make_resnet18(7)
     model.load_state_dict(load_state_dict(MODEL_PATH))
@@ -60,7 +63,8 @@ def load_model():
     model.eval()
     return model
 
-# Função para realizar a predição de uma imagem usando o modelo carregado
+
+# Lê a imagem, converte para RGB, aplica transforms e faz a predição
 def predict_image(image_path, model):
     try:
         image = Image.open(image_path).convert("RGB")
@@ -74,7 +78,8 @@ def predict_image(image_path, model):
         pred = outputs.argmax(1).item()
         return REV_DIAGNOSTIC_MAP.get(pred, "SEM")
 
-# Função principal, responsável por ler o arquivo de entrada, realizar as predições e salvar os resultados
+
+# Ponto de entrada: lê entrada.csv, roda a predição e grava no resultado.csv
 def main():
     input_csv = "entrada.csv"
     output_csv = "resultado.csv"
