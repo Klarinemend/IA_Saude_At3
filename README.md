@@ -74,5 +74,5 @@ Para executar a inferência de novas imagens:
 
 ## Contribuição dos Integrantes
 
-* **Integrante 1 (Nome/Matrícula):** Planejamento da arquitetura de 7 classes, desenvolvimento do pipeline de treinamento com class weighting, calibração do threshold e testes locais com imagens reais de celular.
-* **Integrante 2 (Nome/Matrícula):** Coleta e curadoria de imagens adicionais de controle para a classe SEM (pessoas, objetos e ruídos), preparação do script de inferência e elaboração do relatório técnico.
+* **Integrante 1 (Gustavo Sarti):** Planejamento da arquitetura de 7 classes, coleta e curadoria de imagens para a classe SEM, desenvolvimento dos códigos, calibração do threshold e testes locais com imagens.
+* **Integrante 2 (Klarine Silva):** Planejamento da arquitetura de 7 classes, curadoria de imagens para a classe SEM, desenvolvimento dos códigos e elaboração do relatório técnico.
