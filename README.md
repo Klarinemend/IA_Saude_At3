@@ -12,7 +12,7 @@ A solução utiliza **apenas imagens** como entrada do modelo. Os metadados clí
 metadata.csv
 images/
 images_SEM/
-train_external.py
+train.py
 inferencia.py
 requirements.txt
 README.md
@@ -39,7 +39,7 @@ pip install -r requirements.txt
 O treinamento é feito a partir de uma única rede convolucional unificada com 7 classes, aplicando ponderação de perda para balanceamento de classes e transfer learning:
 
 ```powershell
-python train_external.py --epochs 35 --batch-size 32
+python train.py --epochs 35 --batch-size 32
 ```
 
 O treinamento gera o arquivo de pesos do modelo:
